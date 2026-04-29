@@ -1,0 +1,33 @@
+{
+  "id": "alloy-collector",
+  "name": "Grafana Alloy",
+  "type": "observability",
+  "tier": 1,
+  "description": "Grafana Alloy — a flexible, high-performance telemetry collector for metrics, logs, and traces.",
+  "longDescription": "Deploys Grafana Alloy as the central telemetry collector. Alloy discovers scrape targets via the platform HTTP SD API, collects Prometheus metrics, and forwards them to the active monitoring.metrics backend (e.g. VictoriaMetrics).\n\nAlloy configuration is auto-generated from the platform's plugin discovery API at the KLEFF_PLATFORM_URL.",
+  "tags": ["observability", "collector", "metrics", "logs", "traces", "alloy", "grafana"],
+  "capabilities": ["monitoring.collector"],
+  "author": "Kleff",
+  "repo": "https://github.com/grafana/alloy",
+  "image": "grafana/alloy",
+  "version": "v1.3.1",
+  "license": "Apache-2.0",
+  "verified": true,
+  "ports": [
+    { "container": 12345, "host": 12345, "protocol": "tcp" }
+  ],
+  "volumes": [
+    { "name": "kleff-alloy-data", "target": "/var/lib/alloy/data" },
+    { "hostPath": "/var/run/docker.sock", "target": "/var/run/docker.sock" }
+  ],
+  "config": [
+    {
+      "key": "KLEFF_PLATFORM_URL",
+      "label": "Platform URL",
+      "description": "Internal URL of the Kleff platform API. Auto-injected by the platform — only override if Alloy is not on the same Docker network.",
+      "type": "url",
+      "required": false,
+      "advanced": true
+    }
+  ]
+}

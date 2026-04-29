@@ -1,0 +1,17 @@
+// Discover scrape targets from Kleff platform HTTP SD.
+// Targets are all active monitoring.source plugins (node-exporter, cAdvisor, etc).
+discovery.http "kleff" {
+  url              = env("KLEFF_PLATFORM_URL") + "/api/v1/monitoring/targets"
+  refresh_interval = "30s"
+}
+
+prometheus.scrape "kleff" {
+  targets    = discovery.http.kleff.targets
+  forward_to = [prometheus.remote_write.kleff.receiver]
+}
+
+prometheus.remote_write "kleff" {
+  endpoint {
+    url = env("KLEFF_METRICS_URL") + "/api/v1/write"
+  }
+}
