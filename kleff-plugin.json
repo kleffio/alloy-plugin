@@ -9,8 +9,8 @@
   "capabilities": ["monitoring.collector"],
   "author": "Kleff",
   "repo": "https://github.com/grafana/alloy",
-  "image": "grafana/alloy",
-  "version": "v1.3.1",
+  "image": "ghcr.io/kleffio/alloy-collector",
+  "version": "0.1.0",
   "license": "Apache-2.0",
   "verified": true,
   "ports": [
